@@ -33,7 +33,7 @@ export const registerUser = async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: "Something went wrong" });
+    res.status(500).json({ isSuccess: false, message: "Something went wrong" });
   }
 };
 

@@ -16,7 +16,7 @@ export const addMedicalRecord = async (req, res, next) => {
 
     res
       .status(201)
-      .json({ success: true, message: "Medical record added", data: record });
+      .json({ isSuccess: true, message: "Medical record added", data: record });
   } catch (error) {
     console.error(error);
     return next(new CustomeError("Something went wrong", 500));
@@ -29,7 +29,7 @@ export const getMedicalRecords = async (req, res, next) => {
     const records = await medicalRecordModel.find({
       userId: req.params.userId,
     });
-    res.status(200).json({ success: true, data: records });
+    res.status(200).json({ isSuccess: true, data: records });
   } catch (error) {
     console.error(error);
     return next(new CustomeError("Something went wrong", 500));
@@ -44,7 +44,9 @@ export const deleteMedicalRecord = async (req, res, next) => {
     );
     if (!record) return next(new CustomeError("Record not found", 404));
 
-    res.status(200).json({ success: true, message: "Medical record deleted" });
+    res
+      .status(200)
+      .json({ isSuccess: true, message: "Medical record deleted" });
   } catch (error) {
     console.error(error);
     return next(new CustomeError("Something went wrong", 500));
