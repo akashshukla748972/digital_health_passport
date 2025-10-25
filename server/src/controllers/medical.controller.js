@@ -1,4 +1,4 @@
-import medicalRecordModel from "../models/medicalRecord.model";
+import medicalRecordModel from "../models/medicalRecord.model.js";
 import CustomError from "../utils/CustomError.js";
 
 // Add Medical Record

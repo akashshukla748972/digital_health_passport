@@ -1,4 +1,4 @@
-import accessLogModel from "../models/AccessLog.model";
+import accessLogModel from "../models/AccessLog.model.js";
 import CustomError from "../utils/CustomError.js";
 
 // Revoke Access (User)

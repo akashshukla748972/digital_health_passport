@@ -5,8 +5,6 @@ import CustomError from "../utils/CustomError.js";
 import { gv } from "../config/global_variable.js";
 
 const JWT_SECRET = gv.JWT_SECRET;
-console.log(JWT_SECRET);
-
 // Register
 export const registerUser = async (req, res, next) => {
   try {
