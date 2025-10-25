@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+ --color-primary: #2D77FF;      /* Primary */
+  --color-primary-600: #256be6;  /* hover/active */
+  --color-secondary: #1DBFAF;    /* teal */
+  --color-bg: #F7F9FC;           /* page background */
+  --color-surface: #FFFFFF;      /* cards */
+  --color-text: #1A1A1A;         /* primary text */
+  --color-text-muted: #5F6B7A;   /* secondary text */
+  --color-success: #2ECC71;
+  --color-error: #E74C3C;
+  --color-border: #E2E6EB;
+  --card-shadow: 0 4px 14px rgba(0,0,0,0.08);
+
+
+}
+
+/* .dark {
+  --color-primary: #4C8DFF;
+  --color-primary-600: #3a73f0;
+  --color-secondary: #27D7C6;
+  --color-bg: #0F1116;
+  --color-surface: #1A1F26;
+  --color-text: #E6E9EC;
+  --color-text-muted: #A3A9B4;
+  --color-success: #38D27E;
+  --color-error: #FF6B5E;
+  --color-border: #2A2F36;
+  --card-shadow: 0 4px 14px rgba(0,0,0,0.45);
+} */
