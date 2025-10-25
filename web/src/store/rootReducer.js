@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-
-const rootReducer = combineReducers({});
+import authSlice from "./slices/authSlice";
+const rootReducer = combineReducers({ auth: authSlice });
 
 export default rootReducer;
