@@ -1,5 +1,5 @@
 import medicalRecordModel from "../models/medicalRecord.model";
-import CustomeError from "../utils/CustomeError.js";
+import CustomError from "../utils/CustomError.js";
 
 // Add Medical Record
 export const addMedicalRecord = async (req, res, next) => {
@@ -19,7 +19,7 @@ export const addMedicalRecord = async (req, res, next) => {
       .json({ isSuccess: true, message: "Medical record added", data: record });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };
 
@@ -32,7 +32,7 @@ export const getMedicalRecords = async (req, res, next) => {
     res.status(200).json({ isSuccess: true, data: records });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };
 
@@ -42,13 +42,13 @@ export const deleteMedicalRecord = async (req, res, next) => {
     const record = await medicalRecordModel.findByIdAndDelete(
       req.params.recordId
     );
-    if (!record) return next(new CustomeError("Record not found", 404));
+    if (!record) return next(new CustomError("Record not found", 404));
 
     res
       .status(200)
       .json({ isSuccess: true, message: "Medical record deleted" });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };

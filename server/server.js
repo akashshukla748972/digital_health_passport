@@ -1,7 +1,7 @@
 import http from "http";
-import { gv } from "./config/global_variable.js";
 import app from "./src/app.js";
-import { connectDB } from "./config/db.js";
+import { connectDB } from "./src/config/db.js";
+import { gv } from "./src/config/global_variable.js";
 
 const PORT = gv.port || 5000;
 const server = http.createServer(app);

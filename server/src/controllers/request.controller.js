@@ -1,6 +1,6 @@
 import accessLogModel from "../models/AccessLog.model.js";
 import hospitalRequestModel from "../models/hospitalRequest.model.js";
-import CustomeError from "../utils/CustomError.js";
+import CustomError from "../utils/CustomError.js";
 
 // Request Access (Hospital -> User)
 export const requestAccess = async (req, res, next) => {
@@ -19,7 +19,7 @@ export const requestAccess = async (req, res, next) => {
       .json({ isSuccess: true, message: "Access requested", data: request });
   } catch (error) {
     console.error(error);
-    next(new CustomeError("Something went wrong", 500));
+    next(new CustomError("Something went wrong", 500));
   }
 };
 
@@ -29,7 +29,7 @@ export const approveAccess = async (req, res, next) => {
     const { requestId } = req.params;
 
     const request = await hospitalRequestModel.findById(requestId);
-    if (!request) return next(new CustomeError("Request not found", 404));
+    if (!request) return next(new CustomError("Request not found", 404));
 
     request.status = "approved";
     request.expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
@@ -49,7 +49,7 @@ export const approveAccess = async (req, res, next) => {
       .json({ isSuccess: true, message: "Access approved", data: request });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };
 
@@ -59,7 +59,7 @@ export const rejectAccess = async (req, res, next) => {
     const { requestId } = req.params;
 
     const request = await hospitalRequestModel.findById(requestId);
-    if (!request) return next(new CustomeError("Request not found", 404));
+    if (!request) return next(new CustomError("Request not found", 404));
 
     request.status = "rejected";
     await request.save();
@@ -69,6 +69,6 @@ export const rejectAccess = async (req, res, next) => {
       .json({ isSuccess: true, message: "Access rejected", data: request });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };

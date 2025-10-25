@@ -1,10 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import userModel from "../models/user.model.js";
-import CustomeError from "../utils/CustomeError.js";
-import gv from "../config/globalVariables.js";
+import CustomError from "../utils/CustomError.js";
+import { gv } from "../config/global_variable.js";
 
-const JWT_SECRET = gv.JWT_SECRET || "djfaisfasd4f5asd4f";
+const JWT_SECRET = gv.JWT_SECRET;
+console.log(JWT_SECRET);
 
 // Register
 export const registerUser = async (req, res, next) => {
@@ -12,8 +13,7 @@ export const registerUser = async (req, res, next) => {
     const { fullName, email, phone, password, role } = req.body;
 
     const existingUser = await userModel.findOne({ email });
-    if (existingUser)
-      return next(new CustomeError("Email already exists", 400));
+    if (existingUser) return next(new CustomError("Email already exists", 400));
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -38,15 +38,15 @@ export const registerUser = async (req, res, next) => {
 };
 
 // Login
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     const user = await userModel.findOne({ email });
-    if (!user) return next(new CustomeError("Invalid credentials", 400));
+    if (!user) return next(new CustomError("Invalid credentials", 400));
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return next(new CustomeError("Invalid credentials", 400));
+    if (!isMatch) return next(new CustomError("Invalid credentials", 400));
 
     const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
       expiresIn: "7d",
@@ -66,6 +66,6 @@ export const loginUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    next(new CustomeError("Something went wrong", 500));
+    next(new CustomError("Something went wrong", 500));
   }
 };

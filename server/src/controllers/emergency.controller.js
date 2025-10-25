@@ -1,5 +1,5 @@
 import emergencyInfoModel from "../models/EmergencyInfo.model.js";
-import CustomeError from "../utils/CustomError.js";
+import CustomError from "../utils/CustomError.js";
 
 // Add / Update Emergency Info
 export const upsertEmergencyInfo = async (req, res, next) => {
@@ -32,7 +32,7 @@ export const upsertEmergencyInfo = async (req, res, next) => {
       .json({ success: true, message: "Emergency info saved", data: info });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };
 
@@ -42,11 +42,11 @@ export const getEmergencyInfo = async (req, res, next) => {
     const info = await emergencyInfoModel.findOne({
       userId: req.params.userId,
     });
-    if (!info) return next(new CustomeError("Emergency info not found", 404));
+    if (!info) return next(new CustomError("Emergency info not found", 404));
 
     res.status(200).json({ success: true, data: info });
   } catch (error) {
     console.error(error);
-    return next(new CustomeError("Something went wrong", 500));
+    return next(new CustomError("Something went wrong", 500));
   }
 };
