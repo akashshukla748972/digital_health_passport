@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const hospitalSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "user", required: true },
     name: { type: String, required: true },
     phone: { type: String, required: true },
     email: { type: String },

@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const medicalRecordSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "user", required: true },
     recordType: { type: String, required: true },
     description: { type: String },
     fileUrl: { type: String },
