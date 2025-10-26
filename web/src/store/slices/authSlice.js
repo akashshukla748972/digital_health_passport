@@ -7,19 +7,37 @@ const initialState = {
 };
 
 export const registerUser = createAsyncThunk(
-  "auth/loginUser",
+  "auth/registerUser",
   async (FormData, { rejectWithValue }) => {
     try {
       const res = await Axios.post("/auth/register", FormData);
       if (res.status === 201) {
         localStorage.setItem("token", res.data?.token);
+        return res.data;
+      } else {
+        return rejectWithValue("Registration failed");
       }
-      return res.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(
-        error.response.message || "Internal server error."
-      );
+      return rejectWithValue(error.response.data.message || error.message);
+    }
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (FormData, { rejectWithValue }) => {
+    try {
+      const res = await Axios.post("/auth/login", FormData);
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data?.token);
+        return res.data;
+      } else {
+        return rejectWithValue("Login failed");
+      }
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data.message || error.message);
     }
   }
 );

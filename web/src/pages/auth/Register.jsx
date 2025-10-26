@@ -16,10 +16,13 @@ const Register = () => {
 
   const handleFormSubmit = (data) => {
     try {
-      dispatch(registerUser(data)).then((data) => {
-        // dispatch(checkAuth());
-        console.log(data);
-        toast.success("User register successfully.");
+      dispatch(registerUser(data)).then((res) => {
+        if (res?.error) {
+          toast.error(res?.payload);
+        } else {
+          toast.success("User register successfully.");
+          // dispatch(checkAuth());
+        }
       });
     } catch (error) {
       console.error("Error while register user", error.message);

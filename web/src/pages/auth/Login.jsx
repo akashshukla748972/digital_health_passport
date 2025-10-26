@@ -3,7 +3,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Heart, Mail, Lock, User, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-// import { checkAuth, loginUser } from "../store/authSlice";
+import { loginUser } from "../../store/slices/authSlice";
+import { toast } from "react-toastify";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,16 +14,18 @@ const Login = () => {
   const { register, handleSubmit, reset } = useForm({});
 
   const handleFormSubmit = (data) => {
-    console.log(data);
-    // try {
-    //   dispatch(loginUser(data)).then(() => {
-    //     dispatch(checkAuth()).then(() => {
-    //       navigate("/dashboard");
-    //     });
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      dispatch(loginUser(data)).then((res) => {
+        if (res?.error) {
+          toast.error(res?.payload);
+        } else {
+          toast.success("User Login successfully.");
+          // dispatch(checkAuth());
+        }
+      });
+    } catch (error) {
+      console.error("Error while register user", error.message);
+    }
   };
 
   return (

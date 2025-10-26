@@ -12,6 +12,9 @@ export const registerUser = async (req, res, next) => {
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) return next(new CustomError("Email already exists", 400));
+    const duplicatePhone = await userModel.findOne({ phone });
+    if (duplicatePhone)
+      return next(new CustomError("Phone already exists", 400));
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
