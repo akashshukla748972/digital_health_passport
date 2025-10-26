@@ -37,7 +37,7 @@ export const registerUser = async (req, res, next) => {
       token,
     });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     res.status(500).json({ isSuccess: false, message: "Something went wrong" });
   }
 };
@@ -70,7 +70,22 @@ export const loginUser = async (req, res, next) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     next(new CustomError("Something went wrong", 500));
+  }
+};
+
+export const checkAuth = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    console.log(id);
+    return res.status(200).json({
+      message: "Authorized user.",
+      isSuccess: true,
+      data: req.user,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return next(new CustomError("Something went wrong", 500));
   }
 };
