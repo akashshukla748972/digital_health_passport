@@ -24,10 +24,14 @@ export const registerUser = async (req, res, next) => {
     });
     await user.save();
 
+    const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
     res.status(201).json({
       isSuccess: true,
       message: "User registered successfully",
-      data: { id: user._id, fullName, email, phone, role },
+      token,
     });
   } catch (error) {
     console.error(error);

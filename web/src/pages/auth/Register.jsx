@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Heart, Mail, Lock, User, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-// import { loginUser, registerUser } from "../store/slice/authSlice";
-// import { checkAuth, login } from "../store/slice/userSlice";
+import { registerUser } from "../../store/slices/authSlice";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,19 +15,15 @@ const Register = () => {
   const { register, handleSubmit, reset } = useForm({});
 
   const handleFormSubmit = (data) => {
-    // if (isSignUp) {
-    //   dispatch(
-    //     registerUser(data).then((data) => {
-    //       dispatch(checkAuth());
-    //       navigate("/dashboard");
-    //     })
-    //   );
-    // } else {
-    //   login(data).then((data) => {
-    //     dispatch(checkAuth());
-    //     navigate("/dashboard");
-    //   });
-    // }
+    try {
+      dispatch(registerUser(data)).then((data) => {
+        // dispatch(checkAuth());
+        console.log(data);
+        toast.success("User register successfully.");
+      });
+    } catch (error) {
+      console.error("Error while register user", error.message);
+    }
   };
 
   return (
@@ -51,7 +47,7 @@ const Register = () => {
             <div className="relative">
               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
-                {...register("name", { required: true })}
+                {...register("fullName", { required: true })}
                 type="text"
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="John Doe"
